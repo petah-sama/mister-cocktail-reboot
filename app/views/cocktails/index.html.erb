@@ -1,0 +1,15 @@
+<%= link_to 'Create your Cocktail', new_cocktail_path, class: 'btn btn-outline-dark' %>
+
+<div class="row">
+    <% @cocktails.each do |cocktail| %>
+            <div class="col-sm-6 col-md-4 col-3">
+                <div class="card m-5">
+                    <img src="https://source.unsplash.com/1600x900/?cocktail" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= cocktail.name %></h5>
+                        <%= link_to 'Recipe', cocktail_path(cocktail), class: 'btn btn-outline-dark' %>
+                    </div>
+                </div>
+            </div>
+    <% end %>
+</div>
