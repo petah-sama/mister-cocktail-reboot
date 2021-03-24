@@ -23,5 +23,29 @@
         <% end %>
     </div>
 </div>
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Leave a review!</h2>
+        <%= simple_form_for [@cocktail, @review] do |f| %>
+            <%= f.input :content %>
+            <%= f.submit 'Add Review!' %>
+        <% end %>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <% if @cocktail.reviews.empty? %>
+            <p>No reviews yet :(</p>
+        <% else %>
+            <% @cocktail.reviews.each do |review| %>
+                <h4><%= review.content %></h4>
+                <p><%= link_to 'Delete Review', review_path(review), method: :delete %></p>
+                <hr>
+            <% end %>      
+        <% end %>
+    </div>
+</div>
+
+
 
 <%= link_to 'All Cocktails', cocktails_path, class: 'btn btn-outline-dark' %>
