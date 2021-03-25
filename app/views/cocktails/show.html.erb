@@ -1,51 +1,53 @@
-<h1><%= @cocktail.name %></h1>
-<hr>
-<div class="row">
-    <div class="col-sm-6">
-        <h2>This cocktail contains:</h2>
-        <% if @cocktail.doses.empty? %>
-            <p>Nothing yet :(</p>
-        <% else %>
-            <ul>
-                <% @cocktail.doses.each do |dose| %>
-                    <li><%= dose.ingredient.name %> - <%= dose.description %></li>
-                    <ul><li><%= link_to 'Delete ingredient', dose_path(dose), method: :delete %></li></ul>
-                <% end %>
-            </ul>
-        <% end %>
+<div class="container">
+    <h1><%= @cocktail.name %></h1>
+    <hr>
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>This cocktail contains:</h2>
+            <% if @cocktail.doses.empty? %>
+                <p>Nothing yet :(</p>
+            <% else %>
+                <ul>
+                    <% @cocktail.doses.each do |dose| %>
+                        <li><%= dose.ingredient.name %> - <%= dose.description %></li>
+                        <ul><li><%= link_to 'Delete ingredient', dose_path(dose), method: :delete %></li></ul>
+                    <% end %>
+                </ul>
+            <% end %>
+        </div>
+        <div class="col-sm-6">
+            <h2>Add a new ingredient</h2>
+            <%= simple_form_for [@cocktail, @dose] do |f| %>
+                <%= f.association :ingredient, input_html: { class: 'select2' } %>
+                <%= f.input :description %>
+                <%= f.submit 'Add Ingredient' %>
+            <% end %>
+        </div>
     </div>
-    <div class="col-sm-6">
-        <h2>Add a new ingredient</h2>
-        <%= simple_form_for [@cocktail, @dose] do |f| %>
-            <%= f.association :ingredient, input_html: { class: 'select2' } %>
-            <%= f.input :description %>
-            <%= f.submit 'Add Ingredient' %>
-        <% end %>
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Leave a review!</h2>
+            <%= simple_form_for [@cocktail, @review] do |f| %>
+                <%= f.input :content %>
+                <%= f.submit 'Add Review!' %>
+            <% end %>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        <h2>Leave a review!</h2>
-        <%= simple_form_for [@cocktail, @review] do |f| %>
-            <%= f.input :content %>
-            <%= f.submit 'Add Review!' %>
-        <% end %>
+    <div class="row">
+        <div class="col-sm-12">
+            <% if @cocktail.reviews.empty? %>
+                <p>No reviews yet :(</p>
+            <% else %>
+                <% @cocktail.reviews.each do |review| %>
+                    <h4><%= review.content %></h4>
+                    <p><%= link_to 'Delete Review', review_path(review), method: :delete %></p>
+                    <hr>
+                <% end %>      
+            <% end %>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        <% if @cocktail.reviews.empty? %>
-            <p>No reviews yet :(</p>
-        <% else %>
-            <% @cocktail.reviews.each do |review| %>
-                <h4><%= review.content %></h4>
-                <p><%= link_to 'Delete Review', review_path(review), method: :delete %></p>
-                <hr>
-            <% end %>      
-        <% end %>
-    </div>
-</div>
 
 
 
-<%= link_to 'All Cocktails', cocktails_path, class: 'btn btn-outline-dark' %>
+    <%= link_to 'All Cocktails', cocktails_path, class: 'btn btn-outline-warning' %>
+</div>

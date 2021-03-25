@@ -1,4 +1,6 @@
-<%= simple_form_for @cocktail do |f| %>
-    <%= f.input :name %>
-    <%= f.submit 'Create Cocktail', class: 'btn btn-outline-dark' %>
-<% end %>
+<div class="container">
+    <%= simple_form_for @cocktail do |f| %>
+        <%= f.input :name %>
+        <%= f.submit 'Create Cocktail', class: 'btn btn-outline-warning' %>
+    <% end %>
+</div>
